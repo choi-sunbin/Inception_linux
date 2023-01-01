@@ -15,6 +15,7 @@ wp core download --allow-root --path=/var/www
 
 cp /tmp/wp-config.php /var/www
 
+
 wp core install --allow-root --path=/var/www \
 								--url=sunbchoi.42.fr \
 								--title=Inception \
@@ -23,15 +24,15 @@ wp core install --allow-root --path=/var/www \
 								--admin_email=sunbchoi@student.42seoul.kr \
 								--skip-email
 
+wp plugin install --allow-root redis-cache --activate --path=/var/www
+wp plugin update --allow-root --all --path=/var/www
+wp redis enable --allow-root --path=/var/www
+
 wp user create \
 							user user@student.forest.kr \
 							--allow-root --path=/var/www \
 							--role=author \
 							--user_pass=user42
-
-wp plugin install redis-cache --activate --path=/var/www/
-wp plugin update --all --path=/var/www/
-wp redis enable --path=/var/www/
 
 chmod 777 -R /var/www
 #mariadb 전에 php가 켜지면 안됨!

@@ -1,8 +1,9 @@
-FROM debian:buster
+FROM alpine:3.16
 
-RUN apt-get update && \
-	apt-get install -y nodejs git dumb-init && \
-	git clone https://github.com/zhy2on/simple-static-web
+RUN apk update && apk upgrade
+
+RUN apk add nodejs git dumb-init && \
+	git clone https://github.com/choi-sunbin/simple-static-web
 
 EXPOSE 3000
 
