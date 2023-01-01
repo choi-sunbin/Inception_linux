@@ -1,3 +1,15 @@
+cat .setup 2> /dev/null
+# If Not Set Up Yet
+if [ $? -ne 0 ]; then
+	# Change Config to Use Not Only Socket But Also Network
+	sed -i "s/skip-networking/# skip-networking/g" /etc/my.cnf.d/mariadb-server.cnf
+	# Change Config to Allow Every Host
+	sed -i "s/.*bind-address\s*=.*/bind-address=0.0.0.0\nport=3306/g" /etc/my.cnf.d/mariadb-server.cnf
+	pkill mariadb
+	# Mark as Set Up Finished
+	touch .setup
+fi  
+
 # chown: /auth_pam_tool_dir/auth_pam_tool: No such file or directory error
 mkdir /auth_pam_tool_dir
 touch /auth_pam_tool_dir/auth_pam_tool
@@ -11,6 +23,9 @@ mysql_install_db --user=root \
 								--basedir=/usr \
 								--datadir=/var/lib/mysql \
 								--skip-test-db
+
+
+
 
 # mysql은 설치 후 root와 *패스워드가 없는*익명 사용자를 자동으로 만듦
 # ALTER USER IDENTIFIED BY: 사용자 비밀번호 설정
