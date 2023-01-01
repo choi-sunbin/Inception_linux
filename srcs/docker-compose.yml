@@ -1,15 +1,16 @@
 version: "3"
 services:
   mariadb:
+    container_name: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: ./Dockerfile
-    container_name: mariadb
+    image: mariadb
     env_file: .env
-    networks:
-      - network-inception
     volumes:
       - db-v:/var/lib/mysql
+    networks:
+      - network-inception
     restart: always
 
   wordpress:
@@ -17,6 +18,7 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: ./Dockerfile
+    image: wordpress
     env_file: .env
     volumes:
       - www-v:/var/www/wordpress
@@ -30,21 +32,24 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: ./Dockerfile
-    networks:
-      - network-inception
+    image: nginx
+    env_file: .env
     volumes:
       - www-v:/var/www/wordpress
+    networks:
+      - network-inception
     depends_on:
       - wordpress
-      - adminer
     ports:
       - 443:443
+    restart: always
 
   redis:
     container_name: redis
     build:
       context: ./requirements/bonus/redis/
       dockerfile: ./Dockerfile
+    image: redis
     networks:
       - network-inception
     # Network from Generated One with Docker Compose
