@@ -14,7 +14,7 @@ cd /var/www/wordpress
 wp core download --allow-root --path=/var/www/wordpress
 
 cp /tmp/wp-config.php /var/www/wordpress/wp-config.php
-
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~111111111111~"
 wp core install --allow-root --path=/var/www/wordpress \
 								--url=sunbchoi.42.fr \
 								--title=Inception \
@@ -23,18 +23,22 @@ wp core install --allow-root --path=/var/www/wordpress \
 								--admin_email=sunbchoi@student.42seoul.kr \
 								--skip-email
 
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~vv2222222vvvv~"
+
 wp plugin install --allow-root redis-cache --activate --path=/var/www/wordpress
 wp plugin update --allow-root --all --path=/var/www/wordpress
 wp redis enable --allow-root --path=/var/www/wordpress
 
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~vv233333322333v~"
+
 wp user create \
-							evaluator evaluator@student.42seoul.kr \
-							--allow-root --path=/var/www/wordpress \
-							--role=author \
-							--user_pass=evaluator42
+			evaluator evaluator@student.42seoul.kr \
+			--allow-root --path=/var/www/wordpress \
+			--role=author \
+			--user_pass=evaluator42
 
 chmod 777 -R /var/www/wordpress
-
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 #mariadb 전에 php가 켜지면 안됨!
 
 sleep 5
