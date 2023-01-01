@@ -12,4 +12,4 @@ if [ ! -f "/var/www/wordpress/adminer/index.php" ]; then
 fi
 
 echo "Start Adminer Container"
-exec php-fpm8 -F
+exec php-fpm8 -F --nodaemonize
