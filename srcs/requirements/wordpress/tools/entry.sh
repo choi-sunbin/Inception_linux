@@ -7,10 +7,8 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
-echo "1"
 # wp-cli download
 chmod 777 -R /var/www
-echo "2" 
 cd /var/www
 
 wp core download --allow-root --path=/var/www
@@ -31,6 +29,7 @@ wp user create \
 							--role=author \
 							--user_pass=user42
 
+chmod 777 -R /var/www
 #mariadb 전에 php가 켜지면 안됨!
 sleep 5
 exec php-fpm8 -F
