@@ -29,6 +29,10 @@ wp user create \
 							--role=author \
 							--user_pass=user42
 
+wp plugin install redis-cache --activate --path=/var/www/
+wp plugin update --all --path=/var/www/
+wp redis enable --path=/var/www/
+
 chmod 777 -R /var/www
 #mariadb 전에 php가 켜지면 안됨!
 sleep 5
