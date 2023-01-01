@@ -13,8 +13,7 @@ cd /var/www/wordpress
 
 wp core download --allow-root --path=/var/www/wordpress
 
-cp /tmp/wp-config.php /var/www/wordpress
-
+cp /tmp/wp-config.php /var/www/wordpress/wp-config.php
 
 wp core install --allow-root --path=/var/www/wordpress \
 								--url=sunbchoi.42.fr \
@@ -29,10 +28,10 @@ wp plugin update --allow-root --all --path=/var/www/wordpress
 wp redis enable --allow-root --path=/var/www/wordpress
 
 wp user create \
-							user user@student.forest.kr \
+							evaluator evaluator@student.42seoul.kr \
 							--allow-root --path=/var/www/wordpress \
 							--role=author \
-							--user_pass=user42
+							--user_pass=evaluator42
 
 chmod 777 -R /var/www/wordpress
 
