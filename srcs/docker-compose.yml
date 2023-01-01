@@ -39,6 +39,17 @@ services:
     ports:
       - 443:443
 
+  redis:
+    container_name: redis
+    build:
+      context: ./requirements/bonus/redis/
+      dockerfile: ./Dockerfile
+    networks:
+      - network-inception
+    # Network from Generated One with Docker Compose
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+
 networks:
   network-inception:
     name: network-inception
