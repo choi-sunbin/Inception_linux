@@ -8,7 +8,10 @@ RUN apk add mariadb \
             mariadb-common \
             mariadb-client \
             mariadb-server-utils
-RUN apk add openrc
+
+RUN wget -O /usr/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64 && \
+    chmod +x /usr/bin/dumb-init
+
 RUN apk update && apk upgrade
 
 COPY ./conf/my.cnf /etc/my.cnf
@@ -18,6 +21,9 @@ RUN chmod 777 /var/lib/mysql
 
 COPY ./tools/entry.sh /tmp/run_mariadb.sh
 RUN chmod +x /tmp/run_mariadb.sh
-ENTRYPOINT ["sh", "/tmp/run_mariadb.sh"]
 
 EXPOSE 3306
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+CMD         [ "sh", "-c", "/tmp/run_mariadb.sh" ]

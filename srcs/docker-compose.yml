@@ -36,7 +36,6 @@ services:
       - www-v:/var/www
     depends_on:
       - wordpress
-      - simple-static-web
     ports:
       - 443:443
 
@@ -49,17 +48,6 @@ services:
       - network-inception
     # Network from Generated One with Docker Compose
     # Restart Policy for Keeping Service Active regardless of Any Condition
-    restart: always
-
-  simple-static-web:
-    container_name: simple-static-web
-    build:
-      context: ./requirements/bonus/simple-static-web
-      dockerfile: ./Dockerfile
-    networks:
-      - 42net
-    ports:
-      - 3000:3000
     restart: always
 
 networks:

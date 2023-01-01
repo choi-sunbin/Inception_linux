@@ -32,7 +32,10 @@ RUN apk add bash \
     libmcrypt-dev \
     libltdl 
 RUN apk add lighttpd curl
-RUN apk add mariadb-client redis dumb-init
+RUN apk add mariadb-client redis
+
+RUN wget -O /usr/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64 && \
+    chmod +x /usr/bin/dumb-init
 
 RUN apk update
 # nginx access
@@ -47,6 +50,9 @@ COPY ./conf/wp-config.php /tmp/wp-config.php
 COPY ./tools/entry.sh /tmp/run_wordpress.sh
 
 RUN chmod +x /tmp/run_wordpress.sh
-ENTRYPOINT [ "sh", "/tmp/run_wordpress.sh" ]
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+CMD         [ "sh", "-c", "/tmp/run_wordpress.sh" ]
 
 EXPOSE 9000

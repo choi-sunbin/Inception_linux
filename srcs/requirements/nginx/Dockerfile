@@ -3,7 +3,7 @@
 FROM alpine:3.16
 # RUN build your application
 RUN apk update && apk upgrade
-RUN apk add nginx
+RUN apk add nginx 
 RUN mkdir -p /var/www/
 # COPY add files from your docker client's current directory
 COPY ./tools/entry.sh /tmp/run_nginx.sh
@@ -12,7 +12,11 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /etc/nginx/ssl
 RUN chmod 700 /etc/nginx/ssl
 # MAKE certification
-RUN apk add openssl
+RUN apk add openssl 
+
+RUN wget -O /usr/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64 && \
+    chmod +x /usr/bin/dumb-init
+
 RUN apk upgrade && apk update
 ########### openssl ############
 # https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
@@ -37,6 +41,10 @@ RUN openssl req -x509 \
 
 # RUN apk add openrc
 RUN chmod +x /tmp/run_nginx.sh
-ENTRYPOINT [ "sh", "/tmp/run_nginx.sh" ]
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+CMD         [ "sh", "-c", "/tmp/run_nginx.sh" ]
+
 
 EXPOSE 443
