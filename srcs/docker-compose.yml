@@ -57,7 +57,8 @@ services:
       dockerfile: ./Dockerfile
     networks:
       - network-inception
-    depends_on: mariadb
+    depends_on:
+      - mariadb
     env_file:
       - .env
     ports:
