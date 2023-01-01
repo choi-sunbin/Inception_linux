@@ -8,15 +8,15 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 # wp-cli download
-chmod 777 -R /var/www
-cd /var/www
+chmod 777 -R /var/www/wordpress
+cd /var/www/wordpress
 
-wp core download --allow-root --path=/var/www
+wp core download --allow-root --path=/var/www/wordpress
 
-cp /tmp/wp-config.php /var/www
+cp /tmp/wp-config.php /var/www/wordpress
 
 
-wp core install --allow-root --path=/var/www \
+wp core install --allow-root --path=/var/www/wordpress \
 								--url=sunbchoi.42.fr \
 								--title=Inception \
 								--admin_user=sunbchoi \
@@ -24,17 +24,19 @@ wp core install --allow-root --path=/var/www \
 								--admin_email=sunbchoi@student.42seoul.kr \
 								--skip-email
 
-wp plugin install --allow-root redis-cache --activate --path=/var/www
-wp plugin update --allow-root --all --path=/var/www
-wp redis enable --allow-root --path=/var/www
+wp plugin install --allow-root redis-cache --activate --path=/var/www/wordpress
+wp plugin update --allow-root --all --path=/var/www/wordpress
+wp redis enable --allow-root --path=/var/www/wordpress
 
 wp user create \
 							user user@student.forest.kr \
-							--allow-root --path=/var/www \
+							--allow-root --path=/var/www/wordpress \
 							--role=author \
 							--user_pass=user42
 
-chmod 777 -R /var/www
+chmod 777 -R /var/www/wordpress
+
 #mariadb 전에 php가 켜지면 안됨!
+
 sleep 5
 exec php-fpm8 -F

@@ -19,7 +19,7 @@ services:
       dockerfile: ./Dockerfile
     env_file: .env
     volumes:
-      - www-v:/var/www
+      - www-v:/var/www/wordpress
     networks:
       - network-inception
     depends_on:
@@ -33,9 +33,10 @@ services:
     networks:
       - network-inception
     volumes:
-      - www-v:/var/www
+      - www-v:/var/www/wordpress
     depends_on:
       - wordpress
+      - adminer
     ports:
       - 443:443
 
@@ -59,6 +60,7 @@ services:
       - network-inception
     depends_on:
       - mariadb
+    image: adminer
     env_file:
       - .env
     ports:

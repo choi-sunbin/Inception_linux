@@ -42,8 +42,9 @@ RUN apk update
 # RUN apk add shadow
 # nginx permitted user 'nginx' && php permitted user 'www-data' -> match user 'www-data'
 RUN adduser -u 82 -D -S -G www-data www-data
-RUN chown -R www-data:www-data /var/www
-RUN chmod 777 /var/www
+RUN mkdir -p /var/www/wordpress
+RUN chown -R www-data:www-data /var/www/wordpress
+RUN chmod 777 /var/www/wordpress
 
 COPY ./conf/www.conf /etc/php8/php-fpm.d/www.conf
 COPY ./conf/wp-config.php /tmp/wp-config.php

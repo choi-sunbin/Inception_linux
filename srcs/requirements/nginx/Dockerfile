@@ -4,7 +4,7 @@ FROM alpine:3.16
 # RUN build your application
 RUN apk update && apk upgrade
 RUN apk add nginx 
-RUN mkdir -p /var/www/
+RUN mkdir -p /var/www/wordpress
 # COPY add files from your docker client's current directory
 COPY ./tools/entry.sh /tmp/run_nginx.sh
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
